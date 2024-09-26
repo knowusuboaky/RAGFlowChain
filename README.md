@@ -72,7 +72,7 @@ online_sources = {
     }
 }
 
-local_sources = ["../folder/irt.csv", "../book/book.pdf", "../documents/sample.docx", "../notes/note.txt"]
+local_sources = ["../folder/irt.ppt", "../book/book.pdf", "../documents/sample.docx", "../notes/note.txt"]
 
 # Fetch and process the data
 final_data_df = data_loader(online_sources=online_sources, local_sources=local_sources, chunk_size=1000)
@@ -227,7 +227,7 @@ data_loader(online_sources=None, local_sources=None, chunk_size=1000)
   - **`youtube`**: A tuple (`query`, `api_key`, `max_results`) for fetching YouTube videos.
   - **`websites`**: A list of URLs to fetch content from websites.
 
-- **`local_sources`**: A list of paths to local files (PDF, CSV, DOCX, TXT). The function loads and processes these documents into manageable chunks.
+- **`local_sources`**: A list of paths to local files (PDF, PPT, DOCX, TXT). The function loads and processes these documents into manageable chunks.
 
 - **`chunk_size`**: The size of each text chunk, in characters. Default is `1000`. This determines how the text content is split, ensuring that chunks are neither too large nor too small.
 
