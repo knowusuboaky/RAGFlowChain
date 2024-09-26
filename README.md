@@ -32,6 +32,16 @@ RAGFlowChain allows you to fetch and process data from various online and local 
 
 ```python
 from ragflowchain import data_loader
+import yaml
+import os
+
+# API Keys
+
+PATH_CREDENTIALS = '../credentials.yml'
+
+BOOKS_API_KEY = yaml.safe_load(open(PATH_CREDENTIALS))['book']
+NEWS_API_KEY = yaml.safe_load(open(PATH_CREDENTIALS))['news']
+YOUTUBE_API_KEY = yaml.safe_load(open(PATH_CREDENTIALS))['youtube']
 
 # Define online and local data sources
 # Define URLs for websites
