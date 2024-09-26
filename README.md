@@ -46,9 +46,9 @@ YOUTUBE_API_KEY = yaml.safe_load(open(PATH_CREDENTIALS))['youtube']
 # Define online and local data sources
 # Define URLs for websites
 urls = [
-    "https://www.example.com",
-    "https://www.anotherexample.com",
-    "https://www.anotherexamplethree.com"
+    "https://www.honda.ca/en",
+    "https://www.honda.ca/en/vehicles",
+    "https://www.honda.ca/en/odyssey"
 ]
 
 # Define online sources
@@ -99,7 +99,8 @@ vectorstore, docs_recursive = create_database(
     df=final_data_df,
     page_content="content",
     embedding_function=None,  # Uses default SentenceTransformerEmbeddings
-    vectorstore_directory="data/chroma.db",
+    vectorstore_method='Chroma',  # Options: 'Chroma', 'FAISS', 'Annoy', 'ScaNN'
+    vectorstore_directory="data/chroma.db",  # Adjust according to vectorstore_method
     chunk_size=1000,
     chunk_overlap=100
 )
@@ -119,13 +120,25 @@ vectorstore, docs_recursive = create_database(
   - **Type**: (Optional) A function or model
   - **Description**: A function or pre-trained model used to generate embeddings for the text chunks. If not provided, it defaults to using the `SentenceTransformerEmbeddings` model from `sentence-transformers`, specifically the "all-MiniLM-L6-v2" model. This model converts text chunks into high-dimensional vectors that can be stored in the vector database.
 
+- **`vectorstore_method`**: 
+  - **Type**: `str`
+  - **Description**: The method to use for the vector store. Options include:
+    - `'Chroma'`: A flexible and persistent vector store that is saved to disk.
+    - `'FAISS'`: High-performance, in-memory or disk-based approximate nearest neighbor search.
+    - `'Annoy'`: Lightweight, memory-efficient approximate nearest neighbor search.
+    - `'ScaNN'`: Scalable, high-performance nearest neighbor search optimized for large datasets.
+
 - **`vectorstore_directory`**: 
   - **Type**: `str`
-  - **Description**: The file path to the directory where the vector store will be saved. This directory will store the Chroma vector database, allowing you to persist and reload the database across different sessions. The default path is `"data/chroma.db"`.
+  - **Description**: The file path to the directory where the vector store will be saved. This is used differently depending on the `vectorstore_method`:
+    - For `Chroma`, this specifies the directory where the database is stored.
+    - For `FAISS`, this is the path to save the FAISS index file.
+    - For `Annoy`, this specifies the file path for the Annoy index.
+    - For `ScaNN`, this is the directory where the ScaNN index is persisted.
 
 - **`chunk_size`**: 
   - **Type**: `int`
-  - **Description**: The maximum number of characters in each text chunk after splitting. This parameter is crucial for ensuring that the chunks are small enough to be processed efficiently but large enough to maintain context. The default value is `1000` characters.
+  - **Description**: The maximum number of characters in each text chunk after splitting. This parameter ensures that the chunks are small enough to be processed efficiently but large enough to maintain context. The default value is `1000` characters.
 
 - **`chunk_overlap`**: 
   - **Type**: `int`
@@ -134,8 +147,8 @@ vectorstore, docs_recursive = create_database(
 #### Return Values:
 
 - **`vectorstore`**: 
-  - **Type**: `Chroma`
-  - **Description**: The Chroma vector store object containing the embeddings for the text chunks. This vector store is saved in the specified directory (`vectorstore_directory`) and can be used for retrieval tasks.
+  - **Type**: Depends on `vectorstore_method` (`Chroma`, `FAISS`, `Annoy`, or `ScaNN`)
+  - **Description**: The vector store object containing the embeddings for the text chunks. This vector store is saved in the specified directory (`vectorstore_directory`) and can be used for retrieval tasks.
 
 - **`docs_recursive`**: 
   - **Type**: `List[Document]`
@@ -234,7 +247,7 @@ data_loader(online_sources=None, local_sources=None, chunk_size=1000)
 ### 2. `create_database`
 
 ```python
-create_database(df, page_content, embedding_function=None, vectorstore_directory="data/chroma.db", chunk_size=1000, chunk_overlap=100)
+create_database(df, page_content, embedding_function=None, vectorstore_method='Chroma', vectorstore_directory="data/vectorstore.db", chunk_size=1000, chunk_overlap=100)
 ```
 
 - **`df`**: A pandas DataFrame containing the processed data. This should include columns like `content`, `source`, etc.
@@ -243,9 +256,19 @@ create_database(df, page_content, embedding_function=None, vectorstore_directory
 
 - **`embedding_function`**: (Optional) A function or model used to generate embeddings. Defaults to using `SentenceTransformerEmbeddings`.
 
-- **`vectorstore_directory`**: The directory where the vector store will be saved. Default is `"data/chroma.db"`.
+- **`vectorstore_method`**: The method used for the vector store. Options include:
+  - `'Chroma'`: For a flexible and persistent vector store saved to disk.
+  - `'FAISS'`: For high-performance, in-memory, or disk-based approximate nearest neighbor search.
+  - `'Annoy'`: For a lightweight, memory-efficient approximate nearest neighbor search.
+  - `'ScaNN'`: For scalable, high-performance nearest neighbor search optimized for large datasets.
 
-- **`chunk_size`**: The size of each text chunk, in characters. Used during text splitting.
+- **`vectorstore_directory`**: The directory where the vector store will be saved. The default is `"data/vectorstore.db"`, but the exact usage depends on the `vectorstore_method`:
+  - For `'Chroma'`, this specifies the directory where the database is stored.
+  - For `'FAISS'`, this is the path to save the FAISS index file.
+  - For `'Annoy'`, this specifies the file path for the Annoy index.
+  - For `'ScaNN'`, this is the directory where the ScaNN index is persisted.
+
+- **`chunk_size`**: The size of each text chunk, in characters, used during text splitting.
 
 - **`chunk_overlap`**: The overlap between consecutive chunks, to maintain context. Default is `100`.
 
