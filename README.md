@@ -34,11 +34,32 @@ RAGFlowChain allows you to fetch and process data from various online and local 
 from ragflowchain import data_loader
 
 # Define online and local data sources
+# Define URLs for websites
+urls = [
+    "https://www.honda.ca/en",
+    "https://www.honda.ca/en/vehicles",
+    "https://www.honda.ca/en/odyssey"
+]
+
+# Define online sources
 online_sources = {
-    'books': ("YOUR_BOOKS_API_KEY", 'automobile industry', 10),
-    'news_articles': ("YOUR_NEWS_API_KEY", 'automobile marketing', 5, 1),
-    'youtube': ('honda acura', "YOUR_YOUTUBE_API_KEY", 10),
-    'websites': ["https://www.example.com", "https://www.anotherexample.com"]
+    'youtube': {
+        'topic': 'honda acura',
+        'api_key': YOUTUBE_API_KEY,
+        'max_results': 10
+    },
+    'websites': urls,
+    'books': {
+        'api_key': BOOKS_API_KEY,
+        'query': 'automobile industry',
+        'max_results': 10
+    },
+    'news_articles': {
+        'api_key': NEWS_API_KEY,
+        'query': 'automobile marketing',
+        'page_size': 5,
+        'max_pages': 1
+    }
 }
 
 local_sources = ["../folder/irt.csv", "../book/book.pdf", "../documents/sample.docx", "../notes/note.txt"]
