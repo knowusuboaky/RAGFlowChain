@@ -36,9 +36,9 @@ from ragflowchain import data_loader
 # Define online and local data sources
 # Define URLs for websites
 urls = [
-    "https://www.honda.ca/en",
-    "https://www.honda.ca/en/vehicles",
-    "https://www.honda.ca/en/odyssey"
+    "https://www.example.com",
+    "https://www.anotherexample.com",
+    "https://www.anotherexamplethree.com"
 ]
 
 # Define online sources
