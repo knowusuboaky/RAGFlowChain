@@ -14,7 +14,7 @@
 
 ## Workflow
 
-<img src="https://github.com/knowusuboaky/RAGFlowChain/blob/main/README_files/figure-markdown/mermaid-figure-1.png?raw=true" width="2000" height="400" alt="Optional Alt Text">
+<img src="https://github.com/knowusuboaky/RAGFlowChain/blob/main/README_files/figure-markdown/mermaid-figure-2.png?raw=true" width="2000" height="400" alt="Optional Alt Text">
 
 ## Installation
 
