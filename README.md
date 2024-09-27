@@ -164,6 +164,7 @@ from ragflowchain import create_rag_chain
 rag_chain = create_rag_chain(
     llm=YourLanguageModel(),  # Replace with your LLM instance
     vector_database_directory="data/chroma.db",
+    method='Chroma',  # Choose 'Chroma', 'FAISS', 'ScaNN', or 'Annoy'
     embedding_function=None,  # Optional, defaults to SentenceTransformerEmbeddings
     system_prompt="This is a system prompt.",
     chat_history_prompt="This is a chat history prompt."
@@ -179,6 +180,14 @@ rag_chain = create_rag_chain(
 - **`vector_database_directory`**: 
   - **Type**: `str`
   - **Description**: The directory where the vector store is located. The vector store contains the embeddings generated from the data.
+
+- **`method`**: 
+  - **Type**: `str`
+  - **Description**: The method to use for the vector store. Options include:
+    - `'Chroma'`: A flexible and persistent vector store that is saved to disk.
+    - `'FAISS'`: High-performance, in-memory or disk-based approximate nearest neighbor search.
+    - `'Annoy'`: Lightweight, memory-efficient approximate nearest neighbor search.
+    - `'ScaNN'`: Scalable, high-performance nearest neighbor search optimized for large datasets.
 
 - **`embedding_function`**: 
   - **Type**: (Optional) A function or model
@@ -275,12 +284,18 @@ create_database(df, page_content, embedding_function=None, vectorstore_method='C
 ### 3. `create_rag_chain`
 
 ```python
-create_rag_chain(llm, vector_database_directory, embedding_function=None, system_prompt='', chat_history_prompt='')
+create_rag_chain(llm, vector_database_directory, method = 'Chroma', embedding_function=None, system_prompt='', chat_history_prompt='')
 ```
 
 - **`llm`**: The language model that will be used in the RAG chain. This could be an instance of GPT-3 or any other compatible model.
 
 - **`vector_databse_directory`**: The directory where the vector database is located.
+
+- **`method`**: The method used for the vector store. Options include:
+  - `'Chroma'`: For a flexible and persistent vector store saved to disk.
+  - `'FAISS'`: For high-performance, in-memory, or disk-based approximate nearest neighbor search.
+  - `'Annoy'`: For a lightweight, memory-efficient approximate nearest neighbor search.
+  - `'ScaNN'`: For scalable, high-performance nearest neighbor search optimized for large datasets.
 
 - **`embedding_function`**: (Optional) The function or model used to generate embeddings during retrieval.
 
