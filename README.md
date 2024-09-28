@@ -1,7 +1,14 @@
-# RAGFlowChain
+# RAGFlowChain 0.2.0
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Versions](https://img.shields.io/pypi/pyversions/ragflowchain.svg)](https://pypi.org/project/ragflowchain/)
+[![PyPI version](https://badge.fury.io/py/ragflowchain.svg)](https://badge.fury.io/py/ragflowchain)
+[![GitHub stars](https://img.shields.io/github/stars/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/issues)
+[![GitHub license](https://img.shields.io/github/license/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/blob/main/LICENSE)
+[![Email](https://img.shields.io/badge/Email-kwadwo.owusuboakye%40outlook.com-blue)](mailto:kwadwo.owusuboakye@outlook.com)
+
 
 **RAGFlowChain** is a powerful and flexible toolkit designed for building Retrieval-Augmented Generation (RAG) pipelines. This library integrates data loading from various sources, vector database creation, and chain management, making it easier to develop advanced AI solutions that combine retrieval mechanisms with generative models.
 
@@ -14,14 +21,14 @@
 
 ## Workflow
 
-<img src="https://github.com/knowusuboaky/RAGFlowChain/blob/main/README_files/figure-markdown/mermaid-figure-2.png?raw=true" width="2000" height="400" alt="Optional Alt Text">
+<img src="https://github.com/knowusuboaky/RAGFlowChain/blob/main/README_files/figure-markdown/mermaid-figure-3.png?raw=true" width="2000" height="400" alt="Optional Alt Text">
 
 ## Installation
 
 To install RAGFlowChain, simply run:
 
 ```bash
-pip install RAGFlowChain
+pip install RAGFlowChain==0.2.0
 ```
 
 ## Quickstart
@@ -99,7 +106,7 @@ vectorstore, docs_recursive = create_database(
     df=final_data_df,
     page_content="content",
     embedding_function=None,  # Uses default SentenceTransformerEmbeddings
-    vectorstore_method='Chroma',  # Options: 'Chroma', 'FAISS', 'Annoy', 'ScaNN'
+    vectorstore_method='Chroma',  # Options: 'Chroma', 'FAISS', 'Annoy'
     vectorstore_directory="data/chroma.db",  # Adjust according to vectorstore_method
     chunk_size=1000,
     chunk_overlap=100
@@ -126,7 +133,6 @@ vectorstore, docs_recursive = create_database(
     - `'Chroma'`: A flexible and persistent vector store that is saved to disk.
     - `'FAISS'`: High-performance, in-memory or disk-based approximate nearest neighbor search.
     - `'Annoy'`: Lightweight, memory-efficient approximate nearest neighbor search.
-    - `'ScaNN'`: Scalable, high-performance nearest neighbor search optimized for large datasets.
 
 - **`vectorstore_directory`**: 
   - **Type**: `str`
@@ -134,7 +140,6 @@ vectorstore, docs_recursive = create_database(
     - For `Chroma`, this specifies the directory where the database is stored.
     - For `FAISS`, this is the path to save the FAISS index file.
     - For `Annoy`, this specifies the file path for the Annoy index.
-    - For `ScaNN`, this is the directory where the ScaNN index is persisted.
 
 - **`chunk_size`**: 
   - **Type**: `int`
@@ -147,7 +152,7 @@ vectorstore, docs_recursive = create_database(
 #### Return Values:
 
 - **`vectorstore`**: 
-  - **Type**: Depends on `vectorstore_method` (`Chroma`, `FAISS`, `Annoy`, or `ScaNN`)
+  - **Type**: Depends on `vectorstore_method` (`Chroma`, `FAISS`, or `Annoy`)
   - **Description**: The vector store object containing the embeddings for the text chunks. This vector store is saved in the specified directory (`vectorstore_directory`) and can be used for retrieval tasks.
 
 - **`docs_recursive`**: 
@@ -161,13 +166,15 @@ Integrate the data and vector store into a Retrieval-Augmented Generation (RAG) 
 ```python
 from ragflowchain import create_rag_chain
 
+# Create the RAG chain
 rag_chain = create_rag_chain(
     llm=YourLanguageModel(),  # Replace with your LLM instance
     vector_database_directory="data/chroma.db",
-    method='Chroma',  # Choose 'Chroma', 'FAISS', 'ScaNN', or 'Annoy'
+    method='Chroma',  # Choose 'Chroma', 'FAISS', or 'Annoy'
     embedding_function=None,  # Optional, defaults to SentenceTransformerEmbeddings
-    system_prompt="This is a system prompt.",
-    chat_history_prompt="This is a chat history prompt."
+    system_prompt="This is a system prompt.",  # Optional: Customize your system prompt
+    chat_history_prompt="This is a chat history prompt.",  # Optional: Customize your chat history prompt
+    tavily_search="YourTavilyAPIKey"  # Optional: Replace with your Tavily API key or TavilySearchResults instance
 )
 ```
 
@@ -187,7 +194,6 @@ rag_chain = create_rag_chain(
     - `'Chroma'`: A flexible and persistent vector store that is saved to disk.
     - `'FAISS'`: High-performance, in-memory or disk-based approximate nearest neighbor search.
     - `'Annoy'`: Lightweight, memory-efficient approximate nearest neighbor search.
-    - `'ScaNN'`: Scalable, high-performance nearest neighbor search optimized for large datasets.
 
 - **`embedding_function`**: 
   - **Type**: (Optional) A function or model
@@ -195,11 +201,15 @@ rag_chain = create_rag_chain(
 
 - **`system_prompt`**: 
   - **Type**: `str`
-  - **Description**: A prompt given to the language model to guide its responses. This could include instructions or context specific to the application.
+  - **Description**: A prompt given to the language model to guide its responses. This could include instructions or context specific to the application. If set to `None`, a default system prompt will be used.
 
 - **`chat_history_prompt`**: 
   - **Type**: `str`
-  - **Description**: A prompt template that incorporates the chat history, helping the model maintain context across multiple interactions.
+  - **Description**: A prompt template that incorporates the chat history, helping the model maintain context across multiple interactions. If set to `None`, a default prompt for contextualizing questions will be used.
+
+- **`tavily_search`**: 
+  - **Type**: `str` or `TavilySearchResults` instance (Optional)
+  - **Description**: This argument allows you to integrate real-time web search results into your RAG chain. You can provide either your Tavily API key as a string or an instance of `TavilySearchResults`. If provided, the chain will include up-to-date web search results in its responses.
 
 #### Return Values:
 
@@ -269,39 +279,39 @@ create_database(df, page_content, embedding_function=None, vectorstore_method='C
   - `'Chroma'`: For a flexible and persistent vector store saved to disk.
   - `'FAISS'`: For high-performance, in-memory, or disk-based approximate nearest neighbor search.
   - `'Annoy'`: For a lightweight, memory-efficient approximate nearest neighbor search.
-  - `'ScaNN'`: For scalable, high-performance nearest neighbor search optimized for large datasets.
 
 - **`vectorstore_directory`**: The directory where the vector store will be saved. The default is `"data/vectorstore.db"`, but the exact usage depends on the `vectorstore_method`:
   - For `'Chroma'`, this specifies the directory where the database is stored.
   - For `'FAISS'`, this is the path to save the FAISS index file.
   - For `'Annoy'`, this specifies the file path for the Annoy index.
-  - For `'ScaNN'`, this is the directory where the ScaNN index is persisted.
 
 - **`chunk_size`**: The size of each text chunk, in characters, used during text splitting.
 
 - **`chunk_overlap`**: The overlap between consecutive chunks, to maintain context. Default is `100`.
 
 ### 3. `create_rag_chain`
+Here's the updated version of your code snippet and explanation to include the `tavily_search` argument and adjust the descriptions accordingly:
 
 ```python
-create_rag_chain(llm, vector_database_directory, method = 'Chroma', embedding_function=None, system_prompt='', chat_history_prompt='')
+create_rag_chain(llm, vector_database_directory, method='Chroma', embedding_function=None, system_prompt=None, chat_history_prompt=None, tavily_search=None)
 ```
 
 - **`llm`**: The language model that will be used in the RAG chain. This could be an instance of GPT-3 or any other compatible model.
 
-- **`vector_databse_directory`**: The directory where the vector database is located.
+- **`vector_database_directory`**: The directory where the vector database is located.
 
 - **`method`**: The method used for the vector store. Options include:
   - `'Chroma'`: For a flexible and persistent vector store saved to disk.
   - `'FAISS'`: For high-performance, in-memory, or disk-based approximate nearest neighbor search.
   - `'Annoy'`: For a lightweight, memory-efficient approximate nearest neighbor search.
-  - `'ScaNN'`: For scalable, high-performance nearest neighbor search optimized for large datasets.
 
-- **`embedding_function`**: (Optional) The function or model used to generate embeddings during retrieval.
+- **`embedding_function`**: (Optional) The function or model used to generate embeddings during retrieval. If not provided, it defaults to using `SentenceTransformerEmbeddings`.
 
-- **`system_prompt`**: A prompt given to the language model to guide its responses. This could include instructions or context.
+- **`system_prompt`**: (Optional) A prompt given to the language model to guide its responses. This could include instructions or context specific to the application. If set to `None`, a default system prompt will be used.
 
-- **`chat_history_prompt`**: A prompt template that incorporates the chat history, helping the model maintain context across multiple interactions.
+- **`chat_history_prompt`**: (Optional) A prompt template that incorporates the chat history, helping the model maintain context across multiple interactions. If set to `None`, a default prompt for contextualizing questions will be used.
+
+- **`tavily_search`**: (Optional) This argument allows you to integrate real-time web search results into your RAG chain. You can provide either your Tavily API key as a string or an instance of `TavilySearchResults`. If provided, the chain will include up-to-date web search results in its responses.
 
 ### 4. `rag_chain.invoke`
 
@@ -325,5 +335,5 @@ RAGFlowChain is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 RAGFlowChain is built on top of powerful tools like [LangChain](https://github.com/hwchase17/langchain) and [Chroma](https://github.com/chroma-core/chroma). We thank the open-source community for their contributions.
 
-Made with ❤️ by Kwadwo Daddy Nyame Owusu - Boakye. [[Email]](kwadwo.owusuboakye@outlook.com)
+Made with ❤️ by Kwadwo Daddy Nyame Owusu - Boakye.
 
