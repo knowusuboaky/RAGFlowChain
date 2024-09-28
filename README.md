@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Versions](https://img.shields.io/pypi/pyversions/ragflowchain.svg)](https://pypi.org/project/ragflowchain/)
-[![PyPI version](https://badge.fury.io/py/ragflowchain.svg)](https://badge.fury.io/py/ragflowchain)
+[![PyPI version](https://badge.fury.io/py/ragflowchain.svg?v=0.2.0)](https://badge.fury.io/py/ragflowchain)
 [![GitHub stars](https://img.shields.io/github/stars/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/network/members)
 [![GitHub issues](https://img.shields.io/github/issues/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/issues)
