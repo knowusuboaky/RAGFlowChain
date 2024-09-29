@@ -6,7 +6,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/network/members)
 [![GitHub issues](https://img.shields.io/github/issues/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/issues)
-[![GitHub license](https://img.shields.io/github/license/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/blob/main/LICENSE)
 [![Email](https://img.shields.io/badge/Email-kwadwo.owusuboakye%40outlook.com-blue)](mailto:kwadwo.owusuboakye@outlook.com)
 
 
