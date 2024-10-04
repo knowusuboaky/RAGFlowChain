@@ -1,4 +1,4 @@
-# RAGFlowChain 0.2.0
+# RAGFlowChain 0.3.0
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Versions](https://img.shields.io/pypi/pyversions/ragflowchain.svg)](https://pypi.org/project/ragflowchain/)
@@ -27,7 +27,7 @@
 To install RAGFlowChain, simply run:
 
 ```bash
-pip install RAGFlowChain==0.2.0
+pip install RAGFlowChain==0.3.0
 ```
 
 ## Quickstart
