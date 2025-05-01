@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Versions](https://img.shields.io/pypi/pyversions/ragflowchain.svg)](https://pypi.org/project/ragflowchain/)
 [![PyPI version](https://badge.fury.io/py/ragflowchain.svg)](https://badge.fury.io/py/ragflowchain)
-[![Downloads](https://img.shields.io/pypi/dm/ragflowchain.svg?label=Downloads)](https://pypi.org/project/ragflowchain/#files)
+[![Downloads](https://pepy.tech/badge/ragflowchain)](https://pepy.tech/project/ragflowchain)
 [![GitHub issues](https://img.shields.io/github/issues/knowusuboaky/RAGFlowChain.svg)](https://github.com/knowusuboaky/RAGFlowChain/issues)
 [![Email](https://img.shields.io/badge/Email-kwadwo.owusuboakye%40outlook.com-blue)](mailto:kwadwo.owusuboakye@outlook.com)
 
